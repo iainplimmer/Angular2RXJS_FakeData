@@ -11,9 +11,11 @@ Generates 'massive amounts of fake data in the browser' and can be found here ht
 To install...
 
 npm install faker --save-dev
+
 npm install @types/faker --save-dev
 
 Then in the files that are required.
+
 
 import * as faker from 'faker';
 and type 'faker.' to see all the juicy options.
