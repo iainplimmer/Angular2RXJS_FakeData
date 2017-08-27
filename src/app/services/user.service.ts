@@ -9,7 +9,7 @@ export class UserService {
 
   //  Creates as many users as you tell it to.
   createRandomUsers(numberOfUsers: number): Array<User> {
-    
+              
     let index: number = 0;
     let createdUsers: Array<User> = [];
 

@@ -13,7 +13,11 @@ To install...
 npm install faker --save-dev
 npm install @types/faker --save-dev
 
-then... import * as faker from 'faker'; in the files that are required.
+Then in the files that are required.
+
+import * as faker from 'faker';
+and type 'faker.' to see all the juicy options.
+
 
 ## Server scaffolding
 
