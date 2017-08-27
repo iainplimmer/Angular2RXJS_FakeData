@@ -23,16 +23,23 @@ export class UserService {
   }
 
   //  Creates as many users as you tell it to.
-  initialiseUsers(numberOfUsers: number) {
+  initialiseUsers(numberOfUsers: number, fromService: boolean = false) {
 
-    let index: number = 0;
     let createdUsers: Array<User> = [];
 
-    do {
-      createdUsers.push(this.createRandomUser());
-      index++;
+    //  If the user has requested that the data comes from the service, get it from Node, otherwise, let's generate some data ourselves randomly.
+    if (fromService) {
+      //http://localhost:3000/GetUsers
     }
-    while (index < numberOfUsers)
+    else {
+      let index: number = 0;
+      
+      do {
+        createdUsers.push(this.createRandomUser());
+        index++;
+      }
+      while (index < numberOfUsers)
+    }
 
     let users = [...createdUsers, ...this.users$.getValue()];
     this.users$.next(users);          
