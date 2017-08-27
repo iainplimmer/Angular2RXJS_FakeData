@@ -5,7 +5,10 @@ import { Observable } from "rxjs";
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `
+    <h1>My User List</h1>  
+    <user-list [users]=users></user-list>
+  `,
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit  {

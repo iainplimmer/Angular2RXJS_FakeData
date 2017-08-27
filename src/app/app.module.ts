@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 import { UserService } from './services/user.service';
 import { AppComponent } from './app.component';
 import { UserListComponent } from './components/user-list/user-list.component';
+import { NewUserComponent } from './components/new-user-button/new-user-button.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserListComponent
+    UserListComponent,
+    NewUserComponent    
   ],
   imports: [
     BrowserModule
