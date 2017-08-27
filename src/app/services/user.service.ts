@@ -28,21 +28,17 @@ export class UserService {
       this.users$.next(users);
   }
 
-  //  Creates as many users as you tell it to.
-  initialiseUsers(numberOfUsers: number, fromService: boolean = false) {
+  //  Creates as many users as you tell it to. The service works from an API end point, or
+  initialiseUsers(numberOfUsers: number, fakeData: boolean = false) {
 
-    if (fromService) {
-      //  If the user has requested that the data comes from the service, get it from Node,      
-      this.Http.get(Constants.GetUsers).toPromise().then(res => {
-        let users = [...res.json(), ...this.users$.getValue()];
-        this.users$.next(users);       
-      })
-    }
-    else {
+    if (fakeData) {
+
+      console.warn('This data is faked and not coming from a live HTTP service.')
+
       //  Let's fake our own data here without a service if the flag has not been passed 
       let index: number = 0;
       let createdUsers: Array<User> = [];
-      
+
       do {
         createdUsers.push(this.createRandomUser());
         index++;
@@ -51,6 +47,14 @@ export class UserService {
 
       let users = [...createdUsers, ...this.users$.getValue()];
       this.users$.next(users);       
+      
+    }
+    else {
+      //  If the user has requested that the data comes from the service, get it from Node,      
+      this.Http.get(Constants.GetUsers).toPromise().then(res => {
+        let users = [...res.json(), ...this.users$.getValue()];
+        this.users$.next(users);       
+      })
     }
   
   }
