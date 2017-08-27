@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Rx'
 import * as faker from 'faker';
 import { User } from './../types/User';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject'
@@ -33,28 +34,24 @@ export class UserService {
 
     if (fakeData) {
 
-      console.warn('This data is faked and not coming from a live HTTP service.')
-
-      //  Let's fake our own data here without a service if the flag has not been passed 
-      let index: number = 0;
-      let createdUsers: Array<User> = [];
-
-      do {
-        createdUsers.push(this.createRandomUser());
-        index++;
-      }
-      while (index < numberOfUsers)
-
-      let users = [...createdUsers, ...this.users$.getValue()];
+      //  Let's fake our own data here without a service if the flag has not been passed     
+      console.warn('This data is faked and not coming from a live HTTP service.')      
+      let users = [...this.createRandomUsers(20), ...this.users$.getValue()];
       this.users$.next(users);       
       
     }
     else {
-      //  If the user has requested that the data comes from the service, get it from Node,      
-      this.Http.get(Constants.GetUsers).toPromise().then(res => {
-        let users = [...res.json(), ...this.users$.getValue()];
-        this.users$.next(users);       
-      })
+
+      console.info('This data is coming from our API.')
+
+      //  If the user has requested that the data comes from the service, get it from Node,          
+      this.Http.get(Constants.GetUsers)
+        .map((res : Response) => {
+          let users = [...res.json(), ...this.users$.getValue()];
+          this.users$.next(users);       
+        })
+        .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
+        .subscribe();
     }
   
   }
@@ -68,9 +65,19 @@ export class UserService {
       faker.internet.email(),
       faker.internet.avatar()
     )
-
-    
-
   }
 
+  //  Method used to create N random users
+  private createRandomUsers(n: number) : Array<User> {
+    let index: number = 0;
+    let createdUsers: Array<User> = [];
+
+    do {
+      createdUsers.push(this.createRandomUser());
+      index++;
+    }
+    while (index < n)
+
+    return createdUsers;
+  }
 }
