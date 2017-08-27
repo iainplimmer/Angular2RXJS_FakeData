@@ -21,7 +21,7 @@ export class AppComponent implements OnInit  {
 
   //  When the program starts up, let's fake some users.
   ngOnInit() {
-    this.UserService.initialiseUsers(10);
+    this.UserService.initialiseUsers(10, true);
     this.users = this.UserService.getUsers();    
   }
   
