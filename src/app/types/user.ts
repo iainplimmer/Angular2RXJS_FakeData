@@ -4,7 +4,7 @@ export class User {
     public firstName : string;
     public lastName : string;
     public email : string;
-    public avater: string;
+    public avatar: string;
 
     constructor(id: string, firstName: string, lastName: string, email: string, avatar: string)
     {
@@ -12,6 +12,6 @@ export class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.avater = avatar;
+        this.avatar = avatar;
     }
 }

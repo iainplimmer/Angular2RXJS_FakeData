@@ -1,15 +1,30 @@
 import { Injectable } from '@angular/core';
 import * as faker from 'faker';
 import { User } from './../types/User';
+import {BehaviorSubject} from "rxjs/BehaviorSubject"
 
 @Injectable()
 export class UserService {
 
-  constructor() { }
+  private users$ = new BehaviorSubject<User[]>([]);
+
+  getUsers() {
+    return this.users$.asObservable();
+  }
+
+  addUser(user) {
+      let users = [user, ...this.users$.getValue()];
+      this.users$.next(users);
+  }
+
+  removeUser(user) {
+      let users = this.users$.getValue().filter(u => u !== user);
+      this.users$.next(users);
+  }
 
   //  Creates as many users as you tell it to.
-  createRandomUsers(numberOfUsers: number): Array<User> {
-              
+  initialiseUsers(numberOfUsers: number) {
+
     let index: number = 0;
     let createdUsers: Array<User> = [];
 
@@ -19,7 +34,8 @@ export class UserService {
     }
     while (index < numberOfUsers)
 
-    return createdUsers;
+    let users = [...createdUsers, ...this.users$.getValue()];
+    this.users$.next(users);          
   }
 
   //  Method used to create a random new user

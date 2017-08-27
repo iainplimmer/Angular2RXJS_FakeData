@@ -9,15 +9,14 @@ import {Observable} from "rxjs";
 })
 export class UserListComponent implements OnInit {
 
-  users: Array<User> = [];
+  users: Observable<User[]>;
 
   constructor(private UserService: UserService) { }
 
   ngOnInit() {
-
-    this.users = this.UserService.createRandomUsers(100);
-    
-
+    this.UserService.initialiseUsers(10)
+    this.users = this.UserService.getUsers();    
+    console.log(this.users)
   }
 
 }
