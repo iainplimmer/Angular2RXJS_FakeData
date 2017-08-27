@@ -23,3 +23,14 @@ and type 'faker.' to see all the juicy options.
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+
+## Where does the data come from?
+
+The data can come from the API or you can configure the application to fake the data, FAKE DATA IS DEFAULT!
+
+#To get the data from the API  
+Go to the directory 'server' 
+run NPM INSTALL
+run NODE INDEX
+
+In the app.component file, change '.initialiseUsers(true, 50)' to read '.initialiseUsers()'

@@ -25,7 +25,7 @@ export class AppComponent implements OnInit  {
     /*
       WE CAN FAKE SOME DATA HERE BY PASSING A FLAG, USEFUL IF YOU DON'T WANT TO USE A SERVICE
     */
-    this.UserService.initialiseUsers();
+    this.UserService.initialiseUsers(true, 50);
     this.users = this.UserService.getUsers();    
   }
   
