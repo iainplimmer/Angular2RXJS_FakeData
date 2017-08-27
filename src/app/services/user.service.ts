@@ -30,13 +30,13 @@ export class UserService {
   }
 
   //  Creates as many users as you tell it to. The service works from an API end point, or
-  initialiseUsers(numberOfUsers: number, fakeData: boolean = false) {
+  initialiseUsers(fakeData: boolean = false, numberOfFakeUsers: number = 10) {
 
     if (fakeData) {
 
       //  Let's fake our own data here without a service if the flag has not been passed     
       console.warn('This data is faked and not coming from a live HTTP service.')      
-      let users = [...this.createRandomUsers(20), ...this.users$.getValue()];
+      let users = [...this.createRandomUsers(numberOfFakeUsers), ...this.users$.getValue()];
       this.users$.next(users);       
       
     }
